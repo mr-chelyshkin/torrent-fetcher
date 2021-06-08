@@ -1,0 +1,30 @@
+{
+  "core": {
+    "description": "torrent fetcher app for download torrent data",
+    "url":  "https://gitlab.corp.mail.ru/go-devops/tools/torrent-fetcher",
+    "name": "torrent-fetcher",
+    "bin_name": "torrent-fetcher",
+    "permissions": {
+      "user":  "root",
+      "group": "root"
+    }
+  },
+  "application": {
+    "build": ".",
+    "postun": [
+      "systemctl daemon-reload",
+      "systemctl stop torrent-fetcher.service",
+      "systemctl reset-failed"
+    ]
+  },
+  "extra-files": [
+    {
+      "dest": "/lib/systemd/system/torrent-fetcher.service",
+      "src": "torrent-fetcher.service"
+    },
+    {
+      "dest": "/etc/torrent-fetcher/fetcher.conf",
+      "src": "torrent-fetcher.conf"
+    }
+  ]
+}

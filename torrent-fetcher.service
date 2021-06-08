@@ -1,0 +1,20 @@
+[Unit]
+Description=torrent-fetcher
+
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+
+ExecStart=/bin/torrent-fetcher --configs /etc/torrent-fetcher/fetcher.conf
+ExecReload=/bin/kill -HUP $MAINPID
+
+Restart=always
+KillSignal=SIGINT
+
+User=nobody
+Group=nogroup
+
+[Install]
+WantedBy=multi-user.target
